@@ -1,3 +1,8 @@
+// ============================================
+// COLD LOGS — Supabase Login
+// ============================================
+
+// HTML elements
 const loginForm = document.getElementById("loginForm");
 const teamIdInput = document.getElementById("teamId");
 const passwordInput = document.getElementById("password");

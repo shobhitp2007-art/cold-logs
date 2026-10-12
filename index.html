@@ -10,37 +10,38 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=4">
+  
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
 
-  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script defer src="script.js"></script>
+<script defer src="script.js"></script>
+
+
 </head>
 
 <body>
   <!-- Animated background -->
   <div class="background-grid"></div>
   <div class="background-glow"></div>
-
   <div class="orb orb-one"></div>
   <div class="orb orb-two"></div>
   <div class="orb orb-three"></div>
   <div class="orb orb-four"></div>
   <div class="orb orb-five"></div>
   <div class="orb orb-six"></div>
-
   <div class="orbit-ring ring-one"></div>
   <div class="orbit-ring ring-two"></div>
-
   <div class="scanline"></div>
   <div class="cursor-glow" id="cursorGlow"></div>
 
-  <!-- Navigation -->
   <header class="navbar">
     <a href="#" class="brand">
       <span class="logo-frame">
-        <span class="logo-mark" aria-label="Cold Logs">CL<span>.</span></span>
+        <span class="logo-mark" aria-label="Cold Logs">C<span class="logo-slash">/</span>L<span class="logo-dot">.</span></span>
       </span>
-
       <span class="brand-text">
         <strong>COLD LOGS</strong>
         <small>NO CLUE LEFT BEHIND</small>
@@ -59,12 +60,9 @@
     </div>
   </header>
 
-  <!-- Main content -->
   <main class="main-layout">
-
-    <!-- Left: Hero and case files -->
+    <!-- Left side -->
     <section class="hero-section">
-
       <div class="hero-kicker reveal">
         <span class="kicker-line"></span>
         <span>EVERY SYSTEM LEAVES A TRACE</span>
@@ -91,7 +89,6 @@
 
       <div class="hero-description reveal reveal-delay-2">
         <span class="description-index">[ 01 ]</span>
-
         <p>
           A clue is never just a clue.<br>
           A timestamp is never just a number.<br>
@@ -99,55 +96,45 @@
         </p>
       </div>
 
-      <!-- Investigation cases -->
       <div class="investigation-section reveal reveal-delay-3">
         <div class="section-top">
           <div>
             <span class="section-overline">THE CASE FILES</span>
             <h2>Choose your investigation<span>.</span></h2>
           </div>
-
           <span class="files-count">03 <small>CASES</small></span>
         </div>
 
         <div class="case-list">
-
           <article class="case-card">
             <span class="case-index">01</span>
             <span class="case-symbol">▤</span>
-
             <div class="case-copy">
               <h3>The Missing Question Paper</h3>
               <p>UNAUTHORIZED DISCLOSURE</p>
             </div>
-
             <span class="case-link">↗</span>
           </article>
 
           <article class="case-card">
             <span class="case-index">02</span>
             <span class="case-symbol">⌘</span>
-
             <div class="case-copy">
               <h3>The Stolen Hackathon Prototype</h3>
               <p>SOURCE CODE THEFT</p>
             </div>
-
             <span class="case-link">↗</span>
           </article>
 
           <article class="case-card">
             <span class="case-index">03</span>
             <span class="case-symbol">◎</span>
-
             <div class="case-copy">
               <h3>The Website Takeover</h3>
               <p>UNAUTHORIZED ACCESS</p>
             </div>
-
             <span class="case-link">↗</span>
           </article>
-
         </div>
       </div>
 
@@ -158,12 +145,10 @@
         <span class="bottom-separator">/</span>
         <span><i>03</i> EXPOSE</span>
       </div>
-
     </section>
 
-    <!-- Right: Login panel -->
+    <!-- Right side -->
     <section class="login-section">
-
       <div class="login-backdrop" aria-hidden="true">
         <div class="backdrop-ring"></div>
         <div class="backdrop-ring ring-small"></div>
@@ -177,13 +162,11 @@
       </div>
 
       <div class="login-card" id="loginCard">
-
         <div class="card-top">
           <div class="terminal-status">
             <span class="terminal-dot"></span>
             ACCESS TERMINAL
           </div>
-
           <span class="terminal-id">AUTH_001</span>
         </div>
 
@@ -196,18 +179,12 @@
             </svg>
           </div>
 
-          <span class="heading-eyebrow">
-            YOUR INVESTIGATION STARTS HERE
-          </span>
-
+          <span class="heading-eyebrow">YOUR INVESTIGATION STARTS HERE</span>
           <h2>Enter the<br><span>unknown.</span></h2>
-
           <p>Sign in with your registered team credentials.</p>
         </div>
 
-        <!-- Login form -->
         <form id="loginForm" novalidate>
-
           <div class="form-group">
             <label for="teamId">
               <span>01</span>
@@ -216,7 +193,6 @@
 
             <div class="input-shell">
               <span class="input-symbol">⌘</span>
-
               <input
                 type="text"
                 id="teamId"
@@ -226,10 +202,8 @@
                 maxlength="40"
                 required
               >
-
               <span class="input-end">↵</span>
             </div>
-
             <p class="field-error" id="teamError"></p>
           </div>
 
@@ -241,7 +215,6 @@
 
             <div class="input-shell">
               <span class="input-symbol">◇</span>
-
               <input
                 type="password"
                 id="password"
@@ -250,16 +223,10 @@
                 autocomplete="current-password"
                 required
               >
-
-              <button
-                type="button"
-                class="password-toggle"
-                id="togglePassword"
-              >
+              <button type="button" class="password-toggle" id="togglePassword">
                 SHOW
               </button>
             </div>
-
             <p class="field-error" id="passwordError"></p>
           </div>
 
@@ -275,59 +242,36 @@
             </span>
           </div>
 
-          <button
-            class="submit-button"
-            id="submitButton"
-            type="submit"
-          >
+          <button class="submit-button" id="submitButton" type="submit">
             <span class="button-sweep"></span>
             <span class="button-text">INITIALIZE ACCESS</span>
             <span class="button-arrow">↗</span>
           </button>
 
-          <p
-            class="form-message"
-            id="formMessage"
-            role="status"
-            aria-live="polite"
-          ></p>
-
+          <p class="form-message" id="formMessage" role="status" aria-live="polite"></p>
         </form>
 
         <div class="login-footer">
           <span class="footer-shield">⌬</span>
-
           <div>
             <strong>AUTHORIZED TEAMS ONLY</strong>
             <p>Training simulation / Cold Logs division</p>
           </div>
-
           <span class="footer-code">CL—26</span>
         </div>
-
       </div>
 
       <div class="login-note">
         <span>NO ASSUMPTIONS.</span>
         <strong>JUST EVIDENCE.</strong>
       </div>
-
     </section>
-
   </main>
 
-  <!-- Footer -->
   <footer class="page-footer">
     <span>© COLD LOGS / DIGITAL FORENSICS</span>
-
-    <span class="footer-center">
-      <i></i> EVERY TRACE TELLS A STORY
-    </span>
-
-    <span>
-      BUILT FOR THE CURIOUS<span class="cursor-blink">_</span>
-    </span>
+    <span class="footer-center"><i></i> EVERY TRACE TELLS A STORY</span>
+    <span>BUILT FOR THE CURIOUS<span class="cursor-blink">_</span></span>
   </footer>
-
 </body>
 </html>
