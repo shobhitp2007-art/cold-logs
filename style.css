@@ -1302,7 +1302,119 @@ body::after {
   .title-second { animation-duration: 7s; }
 }
 
-/* Respect people who explicitly ask their device for reduced motion. */
+/* =====================================================================
+   COLD LOGS — SLOW LIVING BACKGROUND + CUSTOM EMBLEM
+   Long, cinematic motion: layered atmosphere moves continuously without
+   snapping, rushing, or distracting from the login form.
+   ===================================================================== */
+
+/* Four slow atmospheric layers: grid drift, dust field, a diagonal light
+   curtain, and a soft golden nebula. */
+.background-grid {
+  opacity: .92 !important;
+  background-size: 58px 58px !important;
+  background-image:
+    linear-gradient(rgba(255, 220, 40, .065) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 220, 40, .065) 1px, transparent 1px) !important;
+  animation: impactGridDrift 64s linear infinite, impactGridPulse 24s ease-in-out infinite alternate !important;
+}
+.background-grid::before {
+  opacity: .78 !important;
+  background-size: 158px 173px, 221px 239px, 313px 281px, 389px 347px !important;
+  animation: impactParticleRush 92s linear infinite alternate !important;
+}
+.background-grid::after {
+  opacity: .78 !important;
+  background: linear-gradient(115deg, transparent 0 38%, rgba(255, 222, 48, .18) 49%, rgba(255, 240, 130, .04) 51%, transparent 61% 100%) !important;
+  animation: impactDiagonalSweep 42s ease-in-out infinite !important;
+}
+.background-glow {
+  opacity: .92 !important;
+  background: radial-gradient(circle, rgba(255, 205, 0, .18), rgba(255, 190, 0, .07) 31%, transparent 69%) !important;
+  animation: impactAurora 72s ease-in-out infinite alternate !important;
+}
+body::after {
+  opacity: .34 !important;
+  animation: impactLightWheel 180s linear infinite !important;
+}
+
+/* Slow gold dust and satellite-like spheres. Each object takes its own path. */
+.orb { opacity: .82 !important; filter: saturate(1.25) brightness(1.12); }
+.orb-one { animation: impactOrbOne 42s ease-in-out infinite !important; }
+.orb-two { animation: impactOrbTwo 31s ease-in-out infinite !important; }
+.orb-three { animation: impactOrbThree 53s ease-in-out infinite !important; }
+.orb-four { animation: impactOrbFour 28s ease-in-out infinite !important; }
+.orb-five { animation: impactOrbFive 47s ease-in-out infinite !important; }
+.orb-six { animation: impactOrbSix 36s ease-in-out infinite !important; }
+
+/* Orbital rings take a long, unhurried pass across the screen. */
+.ring-one { animation: impactOrbitOne 112s linear infinite !important; }
+.ring-two { animation: impactOrbitTwo 86s linear infinite reverse !important; }
+.login-section::before { animation: impactSectionOrbit 135s linear infinite !important; }
+.backdrop-ring { animation: backdropSpin 96s linear infinite !important; }
+.ring-small { animation: backdropSpin 78s linear infinite reverse !important; }
+
+/* A single slow scanner gives the background a subtle live-system quality. */
+.scanline {
+  opacity: .58 !important;
+  animation: impactScan 46s linear infinite !important;
+}
+.scanline::after {
+  height: 1px !important;
+  box-shadow: 0 0 13px rgba(255, 217, 40, .38) !important;
+}
+.navbar::after { animation: impactNavLaser 28s ease-in-out infinite alternate !important; }
+
+/* The new standalone logo is already yellow/gold, so don't recolour it with
+   a sepia filter. Let its own artwork stay crisp and animate the frame gently. */
+.logo-frame { width: 58px !important; height: 58px !important; flex-basis: 58px !important; }
+.logo-frame::before {
+  inset: 5px !important;
+  border-width: 1.5px !important;
+  animation: impactLogoFrame 22s ease-in-out infinite !important;
+}
+.logo-frame::after { animation: logoOrbit 58s linear infinite !important; }
+.logo-frame img {
+  width: 45px !important;
+  height: 45px !important;
+  filter: drop-shadow(0 0 9px rgba(255, 217, 40, .34)) !important;
+  animation: impactLogoPulse 12s ease-in-out infinite !important;
+}
+.brand:hover .logo-frame img { filter: drop-shadow(0 0 15px rgba(255, 217, 40, .72)) !important; }
+
+/* Long, slow details through the title, evidence list, and login card. */
+.title-second { animation: impactTitleFloat 18s ease-in-out infinite !important; }
+.title-second::after { animation: titleGlint 12s ease-in-out infinite !important; }
+.title-watermark { animation: impactWatermark 27s ease-in-out infinite alternate !important; }
+.case-list::after { animation: impactCaseScan 32s linear infinite !important; }
+.case-symbol::after { animation: impactSymbolPulse 8s ease-out infinite !important; }
+.case-card:nth-child(2) .case-symbol::after { animation-delay: 2.6s !important; }
+.case-card:nth-child(3) .case-symbol::after { animation-delay: 5.2s !important; }
+.login-section::after { animation: impactPanelHalo 24s ease-in-out infinite alternate !important; }
+.login-card {
+  animation: cardEnter 1.25s .16s var(--ease) both, cardLevitate 24s 1.5s ease-in-out infinite, impactCardBorder 17s 1.5s ease-in-out infinite !important;
+}
+.login-card::after { animation: impactCardSweep 19s 3s ease-in-out infinite !important; }
+.login-icon { animation: impactIconFloat 17s ease-in-out infinite !important; }
+.submit-button { animation: impactButtonGradient 21s ease-in-out infinite !important; }
+.button-sweep { animation: buttonLight 15s ease-in-out infinite !important; }
+.footer-center i { animation: impactFooterSignal 4.8s ease-in-out infinite !important; }
+.nav-dot, .terminal-dot, .caption-status::before, .secure-entry > span {
+  animation-duration: 4.8s !important;
+}
+
+/* Slightly softer motion on compact screens, with the same living ambience. */
+@media (max-width: 820px) {
+  .background-grid::before { opacity: .56 !important; }
+  .background-glow { opacity: .72 !important; }
+  .orb-one { left: 74% !important; }
+}
+@media (max-width: 520px) {
+  .logo-frame { width: 44px !important; height: 44px !important; flex-basis: 44px !important; }
+  .logo-frame img { width: 34px !important; height: 34px !important; }
+}
+
+/* Honor operating-system reduced-motion preferences. */
 @media (prefers-reduced-motion: reduce) {
   body::after,
   .background-grid,
@@ -1317,12 +1429,14 @@ body::after {
   .logo-frame::after,
   .logo-frame img,
   .title-second,
+  .title-second::after,
   .title-watermark,
   .case-list::after,
   .case-symbol::after,
   .login-section::before,
   .login-section::after,
   .login-card,
+  .login-card::after,
   .login-icon,
   .submit-button,
   .button-sweep,
@@ -1332,4 +1446,3 @@ body::after {
   .login-card { opacity: 1 !important; transform: none !important; translate: none !important; }
   .reveal { opacity: 1 !important; transform: none !important; }
 }
-
