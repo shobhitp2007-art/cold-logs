@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,14 +11,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="icon" type="image/png" href="assets/club-logo.png?v=1">
+  <link rel="apple-touch-icon" href="assets/club-logo.png?v=1">
+  <link rel="stylesheet" href="style.css?v=7">
   
 <script
   defer
   src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
 </script>
 
-<script defer src="script.js"></script>
+<script defer src="script.js?v=3"></script>
 
 
 </head>
@@ -40,7 +43,7 @@
   <header class="navbar">
     <a href="#" class="brand">
       <span class="logo-frame">
-        <span class="logo-mark" aria-label="Cold Logs">C<span class="logo-slash">/</span>L<span class="logo-dot">.</span></span>
+        <img src="assets/club-logo.png?v=1" alt="Club logo" width="48" height="48" decoding="async">
       </span>
       <span class="brand-text">
         <strong>COLD LOGS</strong>
@@ -100,38 +103,18 @@
         <div class="section-top">
           <div>
             <span class="section-overline">THE CASE FILES</span>
-            <h2>Choose your investigation<span>.</span></h2>
+            <h2>Active investigation<span>.</span></h2>
           </div>
-          <span class="files-count">03 <small>CASES</small></span>
+          <span class="files-count">01 <small>ACTIVE</small></span>
         </div>
 
         <div class="case-list">
-          <article class="case-card">
+          <article class="case-card active-case-card">
             <span class="case-index">01</span>
-            <span class="case-symbol">▤</span>
-            <div class="case-copy">
-              <h3>The Missing Question Paper</h3>
-              <p>UNAUTHORIZED DISCLOSURE</p>
-            </div>
-            <span class="case-link">↗</span>
-          </article>
-
-          <article class="case-card">
-            <span class="case-index">02</span>
             <span class="case-symbol">⌘</span>
             <div class="case-copy">
               <h3>The Stolen Hackathon Prototype</h3>
-              <p>SOURCE CODE THEFT</p>
-            </div>
-            <span class="case-link">↗</span>
-          </article>
-
-          <article class="case-card">
-            <span class="case-index">03</span>
-            <span class="case-symbol">◎</span>
-            <div class="case-copy">
-              <h3>The Website Takeover</h3>
-              <p>UNAUTHORIZED ACCESS</p>
+              <p>HS26-IR-014 / SOURCE CODE THEFT · AVAILABLE NOW</p>
             </div>
             <span class="case-link">↗</span>
           </article>
