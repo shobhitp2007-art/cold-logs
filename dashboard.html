@@ -2,387 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>COLD LOGS — Investigation Dashboard</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080907">
+  <meta name="description" content="Cold Logs case desk for the HackSprint 2026 digital forensics exercise.">
+  <title>Case Desk | Cold Logs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      background: #090a07;
-      color: #f4f3e9;
-      font-family: "Space Grotesk", sans-serif;
-      min-height: 100vh;
-    }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 22px 5%;
-      border-bottom: 1px solid #292a20;
-    }
-
-    .logo {
-      font-size: 25px;
-      font-weight: 700;
-      letter-spacing: -1px;
-    }
-
-    .logo span { color: #f8db39; }
-
-    .meta {
-      color: #a6a592;
-      font: 11px "DM Mono", monospace;
-      letter-spacing: 1px;
-    }
-
-    button {
-      font: inherit;
-      cursor: pointer;
-    }
-
-    .logout {
-      border: 1px solid #484832;
-      color: #f4f3e9;
-      background: transparent;
-      padding: 10px 15px;
-      transition: .2s;
-    }
-
-    .logout:hover {
-      border-color: #f8db39;
-      color: #f8db39;
-    }
-
-    main {
-      max-width: 1150px;
-      margin: 55px auto;
-      padding: 0 25px 60px;
-    }
-
-    .eyebrow {
-      color: #f8db39;
-      font: 11px "DM Mono", monospace;
-      letter-spacing: 2px;
-    }
-
-    h1 {
-      font-size: clamp(32px, 5vw, 55px);
-      line-height: 1.05;
-      margin: 15px 0;
-      letter-spacing: -2px;
-    }
-
-    h1 span { color: #f8db39; }
-
-    .intro {
-      color: #a6a592;
-      max-width: 650px;
-      line-height: 1.7;
-    }
-
-    .team-panel {
-      margin: 35px 0 45px;
-      border: 1px solid #373728;
-      background: linear-gradient(120deg, #17180f, #0d0e0b);
-      padding: 22px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .team-label {
-      color: #aaa993;
-      font: 10px "DM Mono", monospace;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-    }
-
-    .team-name {
-      color: #f8db39;
-      font-size: 23px;
-      font-weight: 600;
-    }
-
-    .status {
-      color: #b9b99e;
-      font: 11px "DM Mono", monospace;
-    }
-
-    .section-heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      margin-bottom: 18px;
-    }
-
-    h2 {
-      font-size: 21px;
-      font-weight: 500;
-    }
-
-    .case-count {
-      font: 11px "DM Mono", monospace;
-      color: #f8db39;
-    }
-
-    .case-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 17px;
-    }
-
-    .case-card {
-      position: relative;
-      border: 1px solid #38392a;
-      background: #11120d;
-      padding: 25px;
-      min-height: 240px;
-      transition: border-color .2s, transform .2s;
-    }
-
-    .case-card:hover {
-      border-color: #bba928;
-      transform: translateY(-3px);
-    }
-
-    .case-number {
-      font: 11px "DM Mono", monospace;
-      color: #f8db39;
-    }
-
-    .case-card h3 {
-      font-size: 22px;
-      margin: 25px 0 8px;
-    }
-
-    .case-description {
-      font-size: 13px;
-      color: #a6a592;
-      line-height: 1.6;
-    }
-
-    .case-status {
-      margin-top: 25px;
-      font: 10px "DM Mono", monospace;
-      color: #f8db39;
-      letter-spacing: 1px;
-    }
-
-    .progress-track {
-      height: 4px;
-      background: #303124;
-      margin-top: 12px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: #f8db39;
-      transition: width .4s;
-    }
-
-    #message {
-      margin: 25px 0;
-      color: #aaa993;
-      line-height: 1.6;
-      font-size: 13px;
-    }
-
-    .footer {
-      margin-top: 55px;
-      border-top: 1px solid #292a20;
-      padding-top: 22px;
-      color: #777866;
-      font: 10px "DM Mono", monospace;
-      letter-spacing: 1px;
-    }
-
-    @media (max-width: 700px) {
-      .case-grid { grid-template-columns: 1fr; }
-      main { margin-top: 35px; }
-      .case-card { min-height: 205px; }
-    }
-  </style>
+  <link rel="stylesheet" href="app.css?v=2">
+  <link rel="stylesheet" href="dashboard.css?v=2">
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="supabase-config.js?v=2"></script>
+  <script defer src="dashboard.js?v=2"></script>
 </head>
-
-<body>
-  <header class="topbar">
-    <div class="logo">COLD <span>LOGS.</span></div>
-    <div style="display:flex;align-items:center;gap:18px">
-      <div class="meta">INVESTIGATION TERMINAL</div>
-      <button id="logoutButton" class="logout">SIGN OUT ↗</button>
-    </div>
+<body class="dashboard-page">
+  <div class="ambient-grid" aria-hidden="true"></div><div class="ambient-glow" aria-hidden="true"></div>
+  <header class="topbar wrap">
+    <a class="brand" href="dashboard.html" aria-label="Cold Logs case desk"><span class="brand-mark">C<span>L</span><b>.</b></span><span class="brand-words"><strong>COLD LOGS</strong><small>NO CLUE LEFT BEHIND</small></span></a>
+    <div class="topbar-right"><span class="session-light"></span><span>INVESTIGATION NETWORK</span><button id="logoutBtn" class="text-button" type="button">LOG OUT ↗</button></div>
   </header>
-
-  <main>
-    <div class="eyebrow">ACCESS GRANTED // INVESTIGATION ACTIVE</div>
-    <h1>Follow the <span>evidence.</span></h1>
-    <p class="intro">
-      Three cases. One investigation at a time.
-      Analyze the evidence, unlock clues and save your team's progress.
-    </p>
-
-    <section class="team-panel">
-      <div>
-        <div class="team-label">AUTHENTICATED TEAM</div>
-        <div class="team-name" id="teamName">Loading team...</div>
-      </div>
-      <div class="status" id="teamStatus">CHECKING SESSION...</div>
+  <main class="wrap dashboard-main">
+    <section class="welcome-row">
+      <div><p class="eyebrow"><span class="eyebrow-line"></span> CASE MANAGEMENT / ACTIVE INCIDENT</p><h1>Welcome back,<br><span id="teamName">Investigator.</span></h1><p class="welcome-copy">Your team desk is ready. Examine the source records, test competing explanations, and build a conclusion that can survive scrutiny.</p></div>
+      <div class="clearance-card"><span class="small-overline">YOUR CLEARANCE</span><strong id="teamIdText">TEAM—---</strong><span class="verified-pill"><i></i> VERIFIED SESSION</span></div>
     </section>
-
-    <div class="section-heading">
-      <h2>Your assigned case order</h2>
-      <div class="case-count">03 CASES</div>
-    </div>
-
-    <div id="message">Loading your saved investigation progress...</div>
-    <section id="caseGrid" class="case-grid"></section>
-
-    <div class="footer">
-      COLD LOGS // DIGITAL FORENSICS SIMULATION // FOLLOW THE EVIDENCE
-    </div>
+    <section class="section-title"><div><p class="eyebrow">FIELD ASSIGNMENTS</p><h2>Active case<span class="yellow">.</span></h2></div><span class="case-count">01 <small>LIVE</small></span></section>
+    <article class="featured-case">
+      <div class="case-art" aria-hidden="true"><div class="art-orbit art-orbit-a"></div><div class="art-orbit art-orbit-b"></div><div class="art-cross">+</div><div class="art-code">CL / HS26-IR-014</div><div class="art-word">TRACE</div><div class="art-bottom">DIGITAL FORENSICS UNIT</div><div class="art-corners"></div></div>
+      <div class="case-info">
+        <div class="case-meta"><span class="live-tag"><i></i> AVAILABLE NOW</span><span class="difficulty">HACKSPRINT 2026 / INCIDENT 014</span></div>
+        <h3>The Stolen Hackathon Prototype</h3>
+        <p class="muted">LumenPath's private route-planning prototype appears in rival Team Nimbus's teaser. Follow three staged evidence releases: establish the initial theory, correlate technical records, then review recovered export-stamp and alias records before submitting the 11-question report.</p>
+        <div class="case-facts"><span><b>35</b><small>MINUTES</small></span><span><b>3</b><small>EVIDENCE ROUNDS</small></span><span><b>11</b><small>FINAL QUESTIONS</small></span></div>
+        <a class="primary-button" href="case.html">ENTER INVESTIGATION <span>↗</span></a>
+        <p class="small-note">Evidence is fictional. Do not infer a person's identity from an account, token, IP address or device without corroboration.</p>
+      </div>
+    </article>
+    <section class="protocol-strip"><span class="protocol-icon">⌬</span><div><strong>FIELD PROTOCOL</strong><p>Open only the evidence currently released, complete checkpoint answers before moving forward, and cite filenames with timestamps or record IDs in every important conclusion. Your work is saved locally while you investigate and uploaded to Supabase when submitted.</p></div></section>
+    <section class="desk-footer-note"><span>01 / OBSERVE</span><span>02 / CORRELATE</span><span>03 / EXPLAIN</span></section>
   </main>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <script>
-    // Copy these two values exactly from your working login script.js.
-    const SUPABASE_URL = "https://ousyndkafoqocaahymhh.supabase.co";
-    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_xamCGicmmxPHNGCISPQ__w_gzuOqDqD";
-
-    const client = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY
-    );
-
-    const caseDetails = {
-      "1dd35e34-3947-4dbe-89ee-8b7210edec48": {
-        title: "The Missing Question Paper",
-        description: "Investigate records surrounding an unauthorized disclosure."
-      },
-      "1accb0d6-981c-40ae-80c4-6abcf0c195f4": {
-        title: "The Stolen Hackathon Prototype",
-        description: "Trace project access and uncover the source of a code theft."
-      },
-      "cbb7891e-d34e-4d94-acd6-46fea882f831": {
-        title: "The Website Takeover",
-        description: "Analyze access activity and investigate a website compromise."
-      }
-    };
-
-    const grid = document.getElementById("caseGrid");
-    const message = document.getElementById("message");
-
-    async function loadDashboard() {
-      try {
-        const {
-          data: { session },
-          error: sessionError
-        } = await client.auth.getSession();
-
-        if (sessionError) throw sessionError;
-
-        if (!session) {
-          window.location.href = "index.html";
-          return;
-        }
-
-        const user = session.user;
-        const teamCode =
-          user.user_metadata?.team_code ||
-          user.email?.split("@")[0]?.toUpperCase() ||
-          "YOUR TEAM";
-
-        document.getElementById("teamName").textContent = teamCode;
-        document.getElementById("teamStatus").textContent =
-          "SESSION VERIFIED";
-
-        const { data: progress, error: progressError } = await client
-          .from("team_progress")
-          .select("case_id, current_question, score, completed, display_order")
-          .eq("team_id", user.id)
-          .order("display_order", { ascending: true });
-
-        if (progressError) throw progressError;
-
-        if (!progress || progress.length === 0) {
-          message.textContent =
-            "No case progress records were found for this team. Please contact the event organizers.";
-          return;
-        }
-
-        grid.innerHTML = "";
-
-        progress.forEach((item, index) => {
-          const details = caseDetails[item.case_id] || {
-            title: "Investigation Case",
-            description: "Continue analyzing the evidence in this case."
-          };
-
-          const completed = item.completed === true;
-          const percentage = completed ? 100 : 0;
-
-          const card = document.createElement("article");
-          card.className = "case-card";
-
-          card.innerHTML = `
-            <div class="case-number">
-              CASE / ${String(index + 1).padStart(2, "0")}
-            </div>
-            <h3>${details.title}</h3>
-            <div class="case-description">${details.description}</div>
-            <div class="case-status">
-              ${completed ? "CASE COMPLETED" : "INVESTIGATION NOT YET COMPLETED"}
-            </div>
-            <div class="progress-track">
-              <div class="progress-fill" style="width:${percentage}%"></div>
-            </div>
-            <div class="case-description" style="margin-top:12px">
-              ${completed
-                ? "Completed"
-                : "Current question: " + item.current_question}
-              &nbsp; // &nbsp; Score: ${item.score}
-            </div>
-          `;
-
-          grid.appendChild(card);
-        });
-
-        message.textContent =
-          "Your saved case order and progress have been loaded.";
-
-      } catch (error) {
-        console.error("Dashboard load failed:", error);
-
-        message.textContent =
-          "Unable to load saved progress. Check the browser Console or contact the event organizer.";
-      }
-    }
-
-    document.getElementById("logoutButton").addEventListener(
-      "click",
-      async () => {
-        const { error } = await client.auth.signOut();
-
-        if (error) {
-          message.textContent = "Sign out failed. Please try again.";
-          return;
-        }
-
-        window.location.href = "index.html";
-      }
-    );
-
-    loadDashboard();
-  </script>
+  <footer class="wrap footer"><span>© COLD LOGS / DIGITAL FORENSICS</span><span>TRUST THE TRACE. VERIFY THE STORY.</span></footer>
+  <div id="pageAlert" class="page-alert hidden" role="status" aria-live="polite"></div>
 </body>
 </html>
