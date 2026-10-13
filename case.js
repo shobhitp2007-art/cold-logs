@@ -9,6 +9,7 @@
     session: null,
     teamId: "TEAM-UNKNOWN",
     phase: "round1",
+    visitedPhases: [],
     finalIndex: 0,
     checkpointAnswers: {},
     completedCheckpoints: [],
@@ -78,6 +79,7 @@
     try {
       localStorage.setItem(draftKey(), JSON.stringify({
         phase: state.phase,
+        visitedPhases: state.visitedPhases.slice(),
         finalIndex: state.finalIndex,
         checkpointAnswers: state.checkpointAnswers,
         completedCheckpoints: state.completedCheckpoints,
@@ -106,10 +108,22 @@
       const saved = JSON.parse(localStorage.getItem(draftKey()) || "null");
       if (!saved || typeof saved !== "object") return false;
       state.phase = VALID_PHASES.has(saved.phase) ? saved.phase : "round1";
+      state.visitedPhases = Array.isArray(saved.visitedPhases)
+        ? [...new Set(saved.visitedPhases.filter((phase) => VALID_PHASES.has(phase)))]
+        : [];
+      if (!state.visitedPhases.includes("round1")) state.visitedPhases.push("round1");
+      if (!state.visitedPhases.includes(state.phase)) state.visitedPhases.push(state.phase);
       state.finalIndex = Math.min(Math.max(Number(saved.finalIndex) || 0, 0), DATA.finalQuestions.length - 1);
       state.checkpointAnswers = saved.checkpointAnswers && typeof saved.checkpointAnswers === "object" ? saved.checkpointAnswers : {};
       state.completedCheckpoints = Array.isArray(saved.completedCheckpoints) ? saved.completedCheckpoints.filter((id) => ["checkpoint1", "checkpoint2"].includes(id)) : [];
+      if (state.completedCheckpoints.includes("checkpoint1")) {
+        for (const phase of ["checkpoint1", "round2"]) if (!state.visitedPhases.includes(phase)) state.visitedPhases.push(phase);
+      }
+      if (state.completedCheckpoints.includes("checkpoint2")) {
+        for (const phase of ["checkpoint2", "round3"]) if (!state.visitedPhases.includes(phase)) state.visitedPhases.push(phase);
+      }
       state.round3Complete = Boolean(saved.round3Complete);
+      if (state.round3Complete && !state.visitedPhases.includes("final")) state.visitedPhases.push("final");
       state.finalAnswers = saved.finalAnswers && typeof saved.finalAnswers === "object" ? saved.finalAnswers : {};
       state.events = Array.isArray(saved.events) ? saved.events.slice(-150) : [];
       state.strikes = Math.max(0, Number(saved.strikes) || 0);
@@ -211,11 +225,31 @@
     return false;
   }
 
+  function canNavigateToStage(stage) {
+    if (!state.startedAt || state.submitted) return false;
+    if (stage === "round1") return true;
+    if (stage === "checkpoint1") return !state.checkpoint1Complete && state.visitedPhases.includes("checkpoint1");
+    if (stage === "round2") return state.checkpoint1Complete;
+    if (stage === "checkpoint2") return !state.checkpoint2Complete && state.visitedPhases.includes("checkpoint2");
+    if (stage === "round3") return state.checkpoint2Complete;
+    if (stage === "final") return state.round3Complete;
+    return false;
+  }
+
   function renderPhaseTrack() {
     document.querySelectorAll("[data-phase-step]").forEach((node) => {
       const stage = node.dataset.phaseStep;
-      node.classList.toggle("active", stage === state.phase || (state.phase === "review" && stage === "final"));
+      const active = stage === state.phase || (state.phase === "review" && stage === "final");
+      node.classList.toggle("active", active);
       node.classList.toggle("done", isStageDone(stage));
+      if (node instanceof HTMLButtonElement) {
+        const accessible = canNavigateToStage(stage);
+        node.disabled = !accessible;
+        node.setAttribute("aria-disabled", String(!accessible));
+        if (active) node.setAttribute("aria-current", "step");
+        else node.removeAttribute("aria-current");
+        node.title = accessible ? `Open ${node.querySelector("strong")?.textContent || stage}` : "Complete the previous required stage first";
+      }
     });
   }
 
@@ -287,12 +321,21 @@
   }
 
   function renderGateCopy() {
-    const draftExists = Boolean(state.startedAt);
-    $("continueCaseBtn").classList.toggle("hidden", !draftExists || state.submitted);
+    const draftExists = Boolean(state.startedAt) && !state.submitted;
+    $("continueCaseBtn").classList.toggle("hidden", !draftExists);
+    if (draftExists) {
+      $("startCaseBtn").dataset.action = "continue";
+      $("startCaseBtn").textContent = state.timedOut ? "CONTINUE SAVED INVESTIGATION · TIME EXPIRED" : "CONTINUE SAVED INVESTIGATION";
+      $("continueCaseBtn").textContent = "START A NEW INVESTIGATION · RESET SAVED PROGRESS";
+    } else {
+      $("startCaseBtn").dataset.action = "start";
+      $("startCaseBtn").textContent = "BEGIN INVESTIGATION";
+    }
   }
 
   function setPhase(phase) {
-    state.phase = phase;
+    state.phase = VALID_PHASES.has(phase) ? phase : "round1";
+    if (!state.visitedPhases.includes(state.phase)) state.visitedPhases.push(state.phase);
     persistDraft();
     renderApp();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -693,6 +736,7 @@
     if (!continueSaved) {
       state.startedAt = new Date().toISOString();
       state.phase = "round1";
+      state.visitedPhases = ["round1"];
       state.finalIndex = 0;
       state.checkpointAnswers = {};
       state.completedCheckpoints = [];
@@ -737,8 +781,24 @@
     renderHandbooks();
     loadDraft();
     renderGateCopy();
-    $("startCaseBtn").addEventListener("click", () => beginInvestigation(false));
-    $("continueCaseBtn").addEventListener("click", () => beginInvestigation(true));
+    $("startCaseBtn").addEventListener("click", () => {
+      const action = $("startCaseBtn").dataset.action || "start";
+      beginInvestigation(action === "continue");
+    });
+    $("continueCaseBtn").addEventListener("click", () => {
+      if (state.startedAt && !window.confirm("Start a new investigation? This replaces the saved draft for this team and this case.")) return;
+      beginInvestigation(false);
+    });
+    document.querySelectorAll("button[data-phase-step]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const stage = button.dataset.phaseStep;
+        if (!canNavigateToStage(stage)) {
+          showToast("This stage is still locked. Complete the preceding activity first.");
+          return;
+        }
+        setPhase(stage);
+      });
+    });
     $("gateOpenBrief").addEventListener("click", () => openEvidence(DATA.handbook.find((item) => item.id === "HANDBOOK-01"), true));
     $("gateOpenQuestions").addEventListener("click", () => openEvidence(DATA.handbook.find((item) => item.id === "HANDBOOK-02"), true));
     $("closeEvidence").addEventListener("click", closeEvidence);
@@ -750,9 +810,6 @@
 
     if (state.startedAt) {
       $("startGate").classList.remove("hidden");
-      $("startCaseBtn").textContent = "RESTART AS A NEW INVESTIGATION";
-      $("continueCaseBtn").classList.remove("hidden");
-      $("continueCaseBtn").textContent = "CONTINUE SAVED INVESTIGATION";
       if (state.timedOut) {
         $("timerMessage").textContent = "Time limit was reached · saved work is retained";
       }
