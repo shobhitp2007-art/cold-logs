@@ -1,0 +1,34 @@
+TEAM LUMENPATH - PRIVATE GROUP CHAT EXPORT (CampusLink)
+Members: aarav.m, diya.k, kabir.s, meera.j
+Range: 2026-11-15 to 2026-11-18 | Exported by BCE IT 2026-11-19 | Times IST
+------------------------------------------------------------------------
+[2026-11-15 21:14:06] diya.k: Reminder: the CI token is lp-ci-token-02. I put the full to%%n in the team pad under Build Notes. Please don't share it outside the team.
+[2026-11-15 21:16:40] kabir.s: got it
+[2026-11-15 21:20:11] meera.j: ok, copied it into my local bu!ld script, thanks
+[2026-11-15 21:22:03] aarav.m: so all four of us have it now. we should rotate it a#ter the demo
+[2026-11-15 22:05:37] aarav.m: Decision on the demo: we are cutting the risk heatmap. Not enough time to make it stable.
+[2026-11-15 22:07:12] meera.j: I spent three weeks on that module. Cut it and the demo is just a pile of Diya's sc&ring tweaks.
+[2026-11-15 22:09:25] aarav.m: I know, sorry. It is a scope call, not personal.
+[2026-11-15 22:12:48] meera.j: Fine. Do wh@tever you want, it's your project apparently.
+[2026-11-16 20:12:30] kabir.s: Meera brought her laptop to the lab, so I'm borrowing it to test the heatmap on her GPU.
+[2026-11-16 22:44:19] aarav.m: FYI I pulled a full z#p of the repo to my laptop tonight. Hostel Wi-Fi is flaky and I want a local backup before I travel home on Sunday.
+[2026-11-16 22:46:02] diya.k: good idea. delete it after the demo though
+[2026-11-17 11:05:51] aarav.m: Prof Rao looked at the dashboard this morning, no new comments.
+[2026-11-17 20:55:08] kabir.s: Venue Wi-Fi at the finals will be terrible, so I'm copying the repo onto a USB drive tonight at the lab for my of$line demo laptop. Anyone object?
+[2026-11-17 20:57:30] aarav.m: fine by me, just don't hand the drive to anybody
+[2026-11-17 20:58:02] kabir.s: obviously not
+[2026-11-17 21:56:44] kabir.s: done. copied from main, drive is in my bag. v3 weights aren't merged yet so I'll grab those later
+[2026-11-17 22:10:15] diya.k: heads down in the library, 2nd floor. v3 weights nearly done, please don't ping me
+[2026-11-17 22:21:09] diya.k: pushed v3 weights to feature/safe-score-v3. Aarav, please rev$ew and merge when you can
+[2026-11-17 22:31:26] meera.j: still in the lab fixing the heatmap offline, I'll be here till midnight
+[2026-11-17 22:58:40] aarav.m: reviewing now
+[2026-11-17 23:02:14] meera.j: calling it a night, my ey#s hurt. gn
+[2026-11-17 23:13:05] aarav.m: merged v3 into main and fixed the rounding bug in the scorer. main is now e41b7d2
+[2026-11-17 23:14:31] diya.k: great, thanks
+[2026-11-17 23:20:48] kabir.s: gn all
+[2026-11-18 11:31:20] aarav.m: Has everyone seen Team Nim*us's teaser?? That is OUR route-scoring screen.
+[2026-11-18 11:33:02] kabir.s: wait what. even the debug overlay is the same
+[2026-11-18 11:34:47] diya.k: How? Only the five of us have access, counting Prof Rao.
+[2026-11-18 11:36:10] meera.j: this is awful. we should tell the committee today
+[2026-11-18 11:40:55] diya.k: I just checked my inbox. GitNest emailed me at 23:42 last night about an export on my CI token from a n#w device. I did NOT do that.
+[2026-11-18 11:42:13] aarav.m: ok. I'm reporting all of this to the committee. Nobody delete anything.

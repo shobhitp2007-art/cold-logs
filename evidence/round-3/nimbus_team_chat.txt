@@ -1,0 +1,12 @@
+TEAM NIMBUS - GROUP CHAT EXTRACT (CampusLink)
+Members: ishaan.r, tanvi.d, nikhil.v
+Extract provided by Ishaan Rane, 2026-11-19 | Times IST
+------------------------------------------------------------------------
+[2026-11-18 00:12:51] ishaan.r: got something huge. don't ask yet, I'll tell you in the morning
+[2026-11-18 00:15:20] nikhil.v: lol okay. is it the routing fix??
+[2026-11-18 00:15:48] ishaan.r: better. just need to rename a few th#ngs
+[2026-11-18 00:33:02] ishaan.r: imported. build runs. we are SO back
+[2026-11-18 08:02:10] ishaan.r: reminder - don't share the zip, and strip any lumen strings before we submit
+[2026-11-18 11:44:09] tanvi.d: ishaan... where did the routing code come from? LumenPath is saying it's theirs
+[2026-11-18 11:45:30] ishaan.r: a stranger sent it. "Lantern", from a campus al!as mail. I didn't think it would be traced
+[2026-11-18 11:46:02] tanvi.d: this is not OK. and Kabir is going to get blamed, he told me he'd never share anything

@@ -1,0 +1,14 @@
+CAMPUSLINK DIRECT CHAT - kabir.s <-> tanvi.d (Team Nimbus)
+Provided voluntarily by Kabir Sethi, 2026-11-19. Times IST.
+------------------------------------------------------------------------
+[2026-11-16 19:40:12] tanvi.d: lumenpath's route scoring is the talk of the hostel lol. any chance I can peek at how it works?
+[2026-11-16 19:42:03] kabir.s: haha no way. my teammates would kill me. I can show you the public v0.6 slides though
+[2026-11-16 19:43:27] tanvi.d: boo. ok then at least bring the f$les tomorrow, the pos#er ones. I'll buy you chai
+[2026-11-16 19:44:10] kabir.s: the poster template? yes, will send it tmrw at lunch
+[2026-11-17 13:06:40] kabir.s: sent the poster template via SendBox, check your inbox
+[2026-11-17 13:21:15] tanvi.d: got it, thanks, you're a lifesaver
+[2026-11-17 21:30:48] tanvi.d: u at the lab? someone said you were copying e&erything
+[2026-11-17 21:31:20] kabir.s: lol news travels. just putting the repo on a USB for my own offline demo laptop. poster fonts are on it too
+[2026-11-17 21:32:02] tanvi.d: ah ok. don't lose it
+[2026-11-18 11:50:33] tanvi.d: kabir, I swear I didn't know about any of this. Ishaan says some "Lantern" sent it. not you right
+[2026-11-18 11:52:01] kabir.s: no. and I'd like to know who did
