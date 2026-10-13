@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080907">
+  <meta name="description" content="Cold Logs case desk for the HackSprint 2026 digital forensics exercise.">
+  <title>Case Desk | Cold Logs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css?v=3">
+  <link rel="stylesheet" href="dashboard.css?v=3">
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="supabase-config.js?v=3"></script>
+  <script defer src="dashboard.js?v=3"></script>
+</head>
+<body class="dashboard-page">
+  <div class="ambient-grid" aria-hidden="true"></div><div class="ambient-glow" aria-hidden="true"></div>
+  <header class="topbar wrap">
+    <a class="brand" href="dashboard.html" aria-label="Cold Logs case desk"><span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="44" height="44" rx="2" fill="rgba(255,220,54,.025)" stroke="#ffdc36" stroke-opacity=".82"/>
+          <path d="M29.5 12.5H21.5A8 8 0 0 0 21.5 28.5H26" fill="none" stroke="#ffdc36" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M22.5 24.5V35H34" fill="none" stroke="#f5f2e6" stroke-width="2.6" stroke-linecap="square"/>
+          <circle cx="35.5" cy="12.5" r="2.3" fill="#ffdc36"/>
+          <path d="M8 37H13M35 39H40" stroke="#ffdc36" stroke-opacity=".45" stroke-width="1.3"/>
+        </svg>
+      </span><span class="brand-words"><strong>COLD LOGS</strong><small>NO CLUE LEFT BEHIND</small></span></a>
+    <div class="topbar-right"><span class="session-light"></span><span>INVESTIGATION NETWORK</span><button id="logoutBtn" class="text-button" type="button">LOG OUT ↗</button></div>
+  </header>
+  <main class="wrap dashboard-main">
+    <section class="welcome-row">
+      <div><p class="eyebrow"><span class="eyebrow-line"></span> CASE MANAGEMENT / ACTIVE INCIDENT</p><h1>Welcome back,<br><span id="teamName">Investigator.</span></h1><p class="welcome-copy">Your team desk is ready. Examine the source records, test competing explanations, and build a conclusion that can survive scrutiny.</p></div>
+      <div class="clearance-card"><span class="small-overline">YOUR CLEARANCE</span><strong id="teamIdText">TEAM—---</strong><span class="verified-pill"><i></i> VERIFIED SESSION</span></div>
+    </section>
+    <section class="section-title"><div><p class="eyebrow">FIELD ASSIGNMENTS</p><h2>Active case<span class="yellow">.</span></h2></div><span class="case-count">01 <small>LIVE</small></span></section>
+    <article class="featured-case">
+      <div class="case-art" aria-hidden="true"><div class="art-orbit art-orbit-a"></div><div class="art-orbit art-orbit-b"></div><div class="art-cross">+</div><div class="art-code">CL / HS26-IR-014</div><div class="art-word">TRACE</div><div class="art-bottom">DIGITAL FORENSICS UNIT</div><div class="art-corners"></div></div>
+      <div class="case-info">
+        <div class="case-meta"><span class="live-tag"><i></i> AVAILABLE NOW</span><span class="difficulty">HACKSPRINT 2026 / INCIDENT 014</span></div>
+        <h3>The Stolen Hackathon Prototype</h3>
+        <p class="muted">LumenPath's private route-planning prototype appears in rival Team Nimbus's teaser. Follow three staged evidence releases: establish the initial theory, correlate technical records, then review recovered export-stamp and alias records before submitting the 11-question report.</p>
+        <div class="case-facts"><span><b>35</b><small>MINUTES</small></span><span><b>3</b><small>EVIDENCE ROUNDS</small></span><span><b>11</b><small>FINAL QUESTIONS</small></span></div>
+        <a class="primary-button" href="case.html">ENTER INVESTIGATION <span>↗</span></a>
+        <p class="small-note">Evidence is fictional. Do not infer a person's identity from an account, token, IP address or device without corroboration.</p>
+      </div>
+    </article>
+    <section class="protocol-strip"><span class="protocol-icon">⌬</span><div><strong>FIELD PROTOCOL</strong><p>Open only the evidence currently released, complete checkpoint answers before moving forward, and cite filenames with timestamps or record IDs in every important conclusion. Your work is saved locally while you investigate and uploaded to Supabase when submitted.</p></div></section>
+    <section class="desk-footer-note"><span>01 / OBSERVE</span><span>02 / CORRELATE</span><span>03 / EXPLAIN</span></section>
+  </main>
+  <footer class="wrap footer"><span>© COLD LOGS / DIGITAL FORENSICS</span><span>TRUST THE TRACE. VERIFY THE STORY.</span></footer>
+  <div id="pageAlert" class="page-alert hidden" role="status" aria-live="polite"></div>
+</body>
+</html>

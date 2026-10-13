@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080907">
+  <meta name="description" content="Cold Logs digital-forensics investigation case HS26-IR-014.">
+  <title>HS26-IR-014 | Cold Logs Investigation Room</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css?v=3">
+  <link rel="stylesheet" href="case.css?v=4">
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="supabase-config.js?v=3"></script>
+  <script defer src="case-data.js?v=4"></script>
+  <script defer src="case.js?v=4"></script>
+</head>
+<body class="case-page">
+  <div class="ambient-grid" aria-hidden="true"></div>
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <header class="topbar wrap">
+    <a class="brand" href="dashboard.html" aria-label="Cold Logs case desk">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="44" height="44" rx="2" fill="rgba(255,220,54,.025)" stroke="#ffdc36" stroke-opacity=".82"/>
+          <path d="M29.5 12.5H21.5A8 8 0 0 0 21.5 28.5H26" fill="none" stroke="#ffdc36" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M22.5 24.5V35H34" fill="none" stroke="#f5f2e6" stroke-width="2.6" stroke-linecap="square"/>
+          <circle cx="35.5" cy="12.5" r="2.3" fill="#ffdc36"/>
+          <path d="M8 37H13M35 39H40" stroke="#ffdc36" stroke-opacity=".45" stroke-width="1.3"/>
+        </svg>
+      </span>
+      <span class="brand-words"><strong>COLD LOGS</strong><small>NO CLUE LEFT BEHIND</small></span>
+    </a>
+    <div class="topbar-right">
+      <span class="session-light"></span><span id="teamBadge">VERIFYING TEAM</span>
+      <a class="text-button" href="dashboard.html">CASE DESK ↗</a>
+    </div>
+  </header>
+
+  <main class="wrap case-main">
+    <section class="case-hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span> INCIDENT HS26-IR-014 <span class="eyebrow-divider">/</span> HACKSPRINT 2026</p>
+        <h1>The Stolen Hackathon <span>Prototype.</span></h1>
+        <p class="hero-description" id="caseBrief"></p>
+        <div class="hero-tags" id="caseObjectives"></div>
+      </div>
+      <aside class="timer-card" aria-live="polite">
+        <div class="timer-label"><span class="timer-dot"></span> INVESTIGATION CLOCK</div>
+        <div id="timerValue" class="timer-value">35:00</div>
+        <p id="timerMessage">35 minutes total · 30 investigation + 5 final write-up</p>
+        <div class="timer-track"><span id="timerBar"></span></div>
+        <div class="timer-foot"><span>ALL TIMES IST</span><span id="timerState">NOT STARTED</span></div>
+      </aside>
+    </section>
+
+    <section class="handbook-strip" aria-label="Case handbook">
+      <div class="handbook-title"><span class="small-overline">START HERE</span><strong>Case handbook</strong><span class="handbook-hint">Read before starting</span></div>
+      <div id="handbookList" class="handbook-list"></div>
+    </section>
+
+    <nav class="phase-track" aria-label="Investigation stages">
+      <button class="phase-step" type="button" data-phase-step="round1"><span>01</span><div><strong>Initial pack</strong><small>4 exhibits</small></div></button>
+      <div class="phase-connector"></div>
+      <button class="phase-step" type="button" data-phase-step="checkpoint1"><span>02</span><div><strong>Checkpoint 1</strong><small>Working theory</small></div></button>
+      <div class="phase-connector"></div>
+      <button class="phase-step" type="button" data-phase-step="round2"><span>03</span><div><strong>Messages + audit</strong><small>14 records</small></div></button>
+      <div class="phase-connector"></div>
+      <button class="phase-step" type="button" data-phase-step="checkpoint2"><span>04</span><div><strong>Checkpoint 2</strong><small>Correlate clues</small></div></button>
+      <div class="phase-connector"></div>
+      <button class="phase-step" type="button" data-phase-step="round3"><span>05</span><div><strong>Late evidence</strong><small>Stamp + alias logs</small></div></button>
+      <div class="phase-connector"></div>
+      <button class="phase-step" type="button" data-phase-step="final"><span>06</span><div><strong>Final report</strong><small>11 questions</small></div></button>
+    </nav>
+
+    <div id="caseAlert" class="case-alert hidden" role="status" aria-live="polite"></div>
+
+    <section class="workbench-layout">
+      <aside class="evidence-panel panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">SOURCE RECORDS</p><h2>Evidence locker<span class="yellow">.</span></h2></div>
+          <span class="locker-symbol">⌕</span>
+        </div>
+        <p class="panel-help">Evidence is released in three rounds. Complete Checkpoint 1 and Checkpoint 2 to unlock later packs; review the last evidence pack before starting the 11-question final report.</p>
+        <div id="evidenceHost" class="evidence-host"></div>
+        <div class="evidence-rule"><span>⌬</span><p><strong>Evidence standard</strong><br>For each important claim, cite the filename plus a timestamp or record ID. Logs identify technical artefacts—not automatically the person behind them.</p></div>
+      </aside>
+
+      <section class="activity-panel panel" aria-live="polite">
+        <div class="activity-topline"><span id="activityLabel" class="activity-label">CASE INTAKE</span><span id="saveIndicator" class="save-indicator">DRAFT NOT STARTED</span></div>
+        <div id="activityHost"></div>
+      </section>
+    </section>
+
+    <section id="submissionPanel" class="panel submission-panel hidden" aria-live="polite"></section>
+    <section id="resultPanel" class="panel result-panel hidden" aria-live="polite"></section>
+  </main>
+
+  <footer class="wrap footer"><span>© COLD LOGS / DIGITAL FORENSICS</span><span>TRUST THE TRACE. VERIFY THE STORY.</span></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="evidenceDialog" class="evidence-dialog" aria-labelledby="dialogTitle">
+    <div class="dialog-top"><div><p class="eyebrow">SOURCE DOCUMENT</p><h2 id="dialogTitle">Evidence</h2><p id="dialogMeta" class="dialog-meta"></p></div><button class="icon-button" id="closeEvidence" type="button" aria-label="Close evidence viewer">×</button></div>
+    <div id="evidenceViewer" class="evidence-viewer"></div>
+    <div class="dialog-bottom"><span id="dialogSource" class="dialog-source"></span><a id="downloadEvidence" class="secondary-button" href="#" download>DOWNLOAD SOURCE ↧</a></div>
+  </dialog>
+
+  <div id="startGate" class="gate-backdrop">
+    <section class="gate-card">
+      <span class="gate-symbol">⌬</span>
+      <p class="eyebrow">CASE HS26-IR-014 / AUTHORIZED EXERCISE</p>
+      <h2>Open the<br><span class="yellow">case file.</span></h2>
+      <p class="muted">A prototype has appeared in a rival team's submission. Your job is to reconstruct the chain of events using evidence—not intuition.</p>
+      <div class="gate-stats"><div><strong>35:00</strong><small>TOTAL TIME</small></div><div><strong>3</strong><small>EVIDENCE ROUNDS</small></div><div><strong>11</strong><small>FINAL QUESTIONS</small></div></div>
+      <div class="gate-doc-actions"><button id="gateOpenBrief" type="button" class="secondary-button">OPEN PARTICIPANT BRIEF ↗</button><button id="gateOpenQuestions" type="button" class="secondary-button">OPEN INVESTIGATION QUESTIONS ↗</button></div>
+      <ul>
+        <li>Read the Participant Brief and Investigation Questions first.</li>
+        <li>Complete each checkpoint to unlock the next supplied evidence round.</li>
+        <li>Keep filenames and timestamps/record IDs beside important claims.</li>
+        <li>Logs do not prove a person's identity on their own. State uncertainty clearly.</li>
+      </ul>
+      <button id="startCaseBtn" type="button" class="primary-button gate-button">BEGIN INVESTIGATION <span>↗</span></button>
+      <button id="continueCaseBtn" type="button" class="secondary-button gate-reset-button hidden">START A NEW INVESTIGATION · RESET SAVED PROGRESS</button>
+      <p class="gate-foot">Fictional case materials · Times are IST · Browser focus signals are deterrents, not proof of misconduct.</p>
+    </section>
+  </div>
+</body>
+</html>
