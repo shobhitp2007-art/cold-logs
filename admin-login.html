@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cold Logs | Admin Access</title>
+  <link rel="stylesheet" href="admin.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script defer src="admin-login.js"></script>
+</head>
+<body class="admin-body">
+  <div class="background-grid" aria-hidden="true"></div>
+  <div class="background-glow" aria-hidden="true"></div>
+  <span class="orb orb-one" aria-hidden="true"></span><span class="orb orb-two" aria-hidden="true"></span>
+  <span class="orb orb-three" aria-hidden="true"></span><span class="orb orb-four" aria-hidden="true"></span>
+  <span class="orb orb-five" aria-hidden="true"></span><span class="orb orb-six" aria-hidden="true"></span>
+  <div class="orbit-ring ring-one" aria-hidden="true"></div><div class="orbit-ring ring-two" aria-hidden="true"></div>
+  <div class="scanline" aria-hidden="true"></div>
+  <main class="login-shell">
+    <a class="brand" href="index.html"><span class="brand-mark"><span>C</span><i>/</i><span>L</span><b>.</b></span><span>COLD LOGS <small>ADMIN ACCESS</small></span></a>
+    <section class="login-card">
+      <p class="eyebrow">RESTRICTED AREA</p>
+      <h1>Organizer sign in</h1>
+      <p class="muted">Use your organizer account. Team credentials will not grant admin access.</p>
+      <form id="adminLoginForm">
+        <label for="email">Organizer email</label>
+        <input id="email" name="email" type="email" autocomplete="username" required>
+        <label for="password">Password</label>
+        <div class="password-row">
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+          <button class="ghost-btn" id="togglePassword" type="button">Show</button>
+        </div>
+        <button class="primary-btn full" id="loginButton" type="submit">Authenticate</button>
+        <p id="loginMessage" class="message" role="status" aria-live="polite"></p>
+      </form>
+      <a class="back-link" href="index.html">← Back to team login</a>
+    </section>
+    <p class="footer-note">NO CLUE LEFT BEHIND.</p>
+  </main>
+</body>
+</html>

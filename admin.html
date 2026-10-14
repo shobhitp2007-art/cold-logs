@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cold Logs | Admin Console</title>
+  <link rel="stylesheet" href="admin.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script defer src="admin.js"></script>
+</head>
+<body class="console-body">
+  <div class="background-grid" aria-hidden="true"></div>
+  <div class="background-glow" aria-hidden="true"></div>
+  <span class="orb orb-one" aria-hidden="true"></span><span class="orb orb-two" aria-hidden="true"></span>
+  <span class="orb orb-three" aria-hidden="true"></span><span class="orb orb-four" aria-hidden="true"></span>
+  <span class="orb orb-five" aria-hidden="true"></span><span class="orb orb-six" aria-hidden="true"></span>
+  <div class="orbit-ring ring-one" aria-hidden="true"></div><div class="orbit-ring ring-two" aria-hidden="true"></div>
+  <div class="scanline" aria-hidden="true"></div>
+  <div class="console-layout">
+    <aside class="sidebar">
+      <a class="brand" href="admin.html"><span class="brand-mark"><span>C</span><i>/</i><span>L</span><b>.</b></span><span>COLD LOGS <small>ADMIN CONSOLE</small></span></a>
+      <nav aria-label="Admin navigation">
+        <button class="nav-item active" data-view="overview">▦ <span>Overview</span></button>
+        <button class="nav-item" data-view="teams">♙ <span>Teams</span></button>
+        <button class="nav-item" data-view="submissions">▤ <span>Submissions</span></button>
+        <button class="nav-item" data-view="monitoring">◉ <span>Monitoring</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <span class="live-dot"></span> Organizer session active
+        <button id="signOutButton" class="nav-item signout">↪ <span>Sign out</span></button>
+        <a class="back-link" href="index.html">Open team portal ↗</a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div><p class="eyebrow">DIGITAL INVESTIGATION PLATFORM</p><h1 id="pageTitle">Overview</h1></div>
+        <div class="top-actions"><span id="lastUpdated" class="muted small">Loading data…</span><button id="refreshButton" class="ghost-btn">↻ Refresh</button><button id="exportButton" class="primary-btn">↓ Export CSV</button></div>
+      </header>
+
+      <div id="pageAlert" class="alert hidden" role="status" aria-live="polite"></div>
+
+      <section id="view-overview" class="view">
+        <div class="metric-grid">
+          <article class="metric-card"><span>TEAMS WITH SUBMISSIONS</span><strong id="metricTeams">—</strong><small>Distinct team IDs in submission records</small></article>
+          <article class="metric-card"><span>TOTAL SUBMISSIONS</span><strong id="metricSubmissions">—</strong><small>All records visible to this admin</small></article>
+          <article class="metric-card"><span>FLAGGED EVENTS</span><strong id="metricFlags">—</strong><small>Recorded client-side monitoring events</small></article>
+          <article class="metric-card"><span>CASES SUBMITTED</span><strong id="metricCases">—</strong><small>Distinct case IDs submitted</small></article>
+        </div>
+        <div class="panel-grid">
+          <section class="panel">
+            <div class="panel-heading"><div><p class="eyebrow">LATEST ACTIVITY</p><h2>Recent submissions</h2></div><button class="text-btn" data-goto="submissions">View all →</button></div>
+            <div class="table-wrap"><table><thead><tr><th>Team</th><th>Case</th><th>Status</th><th>Submitted</th></tr></thead><tbody id="recentRows"></tbody></table></div>
+          </section>
+          <section class="panel">
+            <div class="panel-heading"><div><p class="eyebrow">EVENT SNAPSHOT</p><h2>Submission status</h2></div></div>
+            <div id="statusSummary" class="status-summary"></div>
+            <p class="note">Counts reflect stored submissions, not necessarily every registered team. Auth user directories are not exposed to browser clients.</p>
+          </section>
+        </div>
+      </section>
+
+      <section id="view-teams" class="view hidden">
+        <section class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">PARTICIPANT DIRECTORY</p><h2>Teams</h2><p class="muted">Teams are inferred from submission records. Teams that have never submitted are not listed here.</p></div><button class="ghost-btn" data-export="teams">Export teams</button></div>
+          <div class="toolbar"><input id="teamSearch" type="search" placeholder="Search team ID…" aria-label="Search teams"><span id="teamCount" class="muted small"></span></div>
+          <div class="table-wrap"><table><thead><tr><th>Team ID</th><th>Submissions</th><th>Cases</th><th>Last activity</th><th>Flagged events</th></tr></thead><tbody id="teamRows"></tbody></table></div>
+        </section>
+      </section>
+
+      <section id="view-submissions" class="view hidden">
+        <section class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">CASE RECORDS</p><h2>Submissions</h2></div><button class="ghost-btn" data-export="submissions">Export submissions</button></div>
+          <div class="toolbar">
+            <input id="submissionSearch" type="search" placeholder="Search team, case, or status…" aria-label="Search submissions">
+            <select id="statusFilter" aria-label="Filter by status"><option value="">All statuses</option><option value="submitted">Submitted</option><option value="auto_submitted">Auto-submitted</option><option value="timeout">Timeout</option></select>
+          </div>
+          <div class="table-wrap"><table><thead><tr><th>Team</th><th>Case</th><th>Status / reason</th><th>Elapsed</th><th>Anti-cheat count</th><th>Submitted at</th><th></th></tr></thead><tbody id="submissionRows"></tbody></table></div>
+        </section>
+      </section>
+
+      <section id="view-monitoring" class="view hidden">
+        <section class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">REVIEW SIGNALS, NOT VERDICTS</p><h2>Monitoring events</h2><p class="muted">These are client-reported signals and may be incomplete or triggered accidentally. Review context before taking action.</p></div><button class="ghost-btn" data-export="monitoring">Export events</button></div>
+          <div class="toolbar"><input id="monitorSearch" type="search" placeholder="Search team, event type, or case…" aria-label="Search monitoring events"></div>
+          <div class="table-wrap"><table><thead><tr><th>Time</th><th>Team</th><th>Case</th><th>Event type</th><th>Details</th></tr></thead><tbody id="monitorRows"></tbody></table></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="submissionDialog" class="detail-dialog">
+    <div class="dialog-head"><div><p class="eyebrow">SUBMISSION DETAIL</p><h2 id="dialogTitle">Submission</h2></div><button id="closeDialog" class="ghost-btn" type="button">✕ Close</button></div>
+    <div id="submissionDetail"></div>
+  </dialog>
+</body>
+</html>
